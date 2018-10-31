@@ -1,3 +1,10 @@
-- hosts: all
+- name: Configure a custom service
+  hosts: all
+
+  environment: '{{ inventory__environment | d({})
+                   | combine(inventory__group_environment | d({}))
+                   | combine(inventory__host_environment  | d({})) }}'
+
   roles:
+
     - role: mysql
